@@ -85,6 +85,8 @@ Lastly, the categorical nature of the EROs can create potential problems. Unlike
 | Interrogate nodes and assign EROs | 2 weeks | Poor (1/4) | Similar to the above, no member has previously trained a model, so working with the nodes will be a new step. |
 | Write up the results | 1 week | Great (4/4) | Both group members have written up scientific results before and discussed them in course papers or research articles. |
 
+*Table 2: Description of project's initial timeline. Overall, the timeline was mostly followed with some minor discrepancies.*
+
 ---
 
 ## 6. Results
@@ -230,4 +232,5 @@ Items marked in green have been completed, items marked in yellow are in progres
 | PR-07: Group EROs by SOM Node and Analyze | Medium | 3 | Both Members | Connect atmospheric regimes to ERO behavior by analyzing EROs within each SOM node. | EROs grouped by SOM node.<br>Any-risk and SLGT-or-higher ERO frequency maps created.<br>Maximum risk category plots created.<br>Seasonality statistics/heatmaps created.<br>Spatial ERO patterns compared across regimes. | Check that ERO categories correspond to the correct numerical risk scale and that each ERO is assigned to one node. | Complete |
 | PR-08: Add Precipitation Validation Metric | Medium | Future Work | Both Members | Add an observed or gridded precipitation metric to evaluate how SOM/ERO regimes correspond to actual precipitation amounts. | Add total precipitation data, likely from PRISM.<br>Compare precipitation totals or extremes across SOM nodes.<br>Assess which regimes produce the largest precipitation events. | Check that precipitation data spatially and temporally matches the ERO/SOM event dates. | Not Compete... Future Work |
 
+*Table 3: Inital project requirements document with update progress status*
 
