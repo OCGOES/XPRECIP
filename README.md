@@ -82,23 +82,90 @@ Write up the results	1 weeks	Great (4/4)	Both group members have written up scie
 ## 6. Results
 Results towards running, training, and tuning the model goes as far as looking at PWAT and Z500, which are relatively standard metrics for excessive rainfall, but not extending beyond the other variables initially chosen (e.g., MSLP, CAPE; Gao et al. 2014). When tuning the SOM, the process evaluated combinations of map size (4x4, 5x4), neighborhood radius (sigma = 1.0 to 2.0), learning rate (0.05 to 0.15), and training iterations (5000 to 7500). Model performance was assessed using quantization error (QE) to determine how well the model is accurately representing the data. A grid of such parameters was looped through, calculating the QE for each combination, and ranked to determine the most productive SOM. Additionally, statistics were run to calculate which hyperparameters had the strongest influence on the SOM’s performance (Fig. 1). Sigma, which is essentially the neighborhood function, had the most noticeable impact on the SOM’s performance. The increase in map size also yielded a more favorable QE, however, this is typically exhibited by increasing the map size, and in some cases can cause overfitting. Furthermore, the QE did not significantly decrease from the map size, thus overfitting is unlikely to be an issue with this model. Finally, the optimal combination of parameters was identified as the 5x4 SOM with sigma=1.0, learning rate=0.1, and 5,000 iterations to yield the smallest QE of 155.57.
 
+<p align="center">
+  <img src="figures/QE_stats.png" width="850">
+</p>
 
+<p align="center">
+  <em>Figure 1: SOM hyperparameters and the effects on quantization error.</em>
+</p>
 
 After running the “winning” SOM, the results yielded a modest distribution of cases per node, with the highest node frequency being 84 and the lowest being 24 (Fig. 2). Most importantly, no nodes exhibit extremely low member counts, which occurred in previous training renditions of this model. This distribution may also imply that some excessive rainfall synoptic regimes occur more frequently than others. A U-Matrix was used to further quantitatively depict the dissimilarity between nodes (Fig. 2), which aids in the process of subjectively analyzing the patterns depicted by the atmospheric variables in the SOM output. Thus, the application of SOMs proved to be highly effective (Hewitson and Crane 2002, Gibson et al. 2017), as these differing regimes were easily visualized in Figure 3. Overall, the results show the amplest moisture centered in the top left nodes, decreasing in moisture content moving towards the bottom right, where the best moisture content gets confined to the Gulf Coast. More sensitive patterns with the height field arise from the node-to-node differences. A couple examples include further and further central ridging and eastern troughing in row 0 moving left to right, or tighter height fields moving down columns 2 and 3. Generally, stronger flow, which is indicated by tighter height gradients, also appears more common in the lower right portion of the grid.
 
+<p align="center">
+  <img src="figures/confusion.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 2: Winning SOM distance U-Matrix (left) and node frequency (right).</em>
+</p>
+
+
+<p align="center">
+  <img src="figures/pwat_z500.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 3: Plotted "winning" SOM with PWAT (shaded) and Z500 (contoured).</em>
+</p>
 
 Afterwards, the members of each node were pulled out along with their corresponding ERO, and a statistical analysis was plotted. For each node, the percentage of members having any ERO category was plotted matching the SOM grid (Fig. 4). This allows spatial patterns to arise between the mean synoptic pattern and where a forecasted ERO would be most likely to exist. With the nodes that include a smaller extent of moisture, the heat map focuses mainly on where the moisture is, but for the more widespread moist regimes, more variability on ERO frequency occurs. Additionally, ERO frequency was more focused in troughing patterns, with hot spots located at the base and ahead of the trough, but for dominant ridging patterns there was minimal correlation to where the ERO was most common. This visualization of the data proved to yield better results than the raw node ERO counts, which fail to visually represent the nodes that have fewer members (Fig. 5). The same spatial pattern is represented in both Figure 4 and 5, however, the magnitude of occurrences is not properly represented. For example, node (0,3) has a clear maximum in the frequency analysis plot, however, this area is washed out in the raw count plot given the relatively low member count in the SOM node itself. However, it stands as more intuitive to understand exactly how many days an ERO was issued at a point for a certain regime.
 
+<p align="center">
+  <img src="figures/any_freq.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 4: Any ERO Outlook Percentage Frequency per SOM Node.</em>
+</p>
+
+
+<p align="center">
+  <img src="figures/any_count.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 5: Raw count of any ERO occurrence per grid cell for each node.</em>
+</p>
 
 Similar spatial patterns evolved for utilizing the frequency map for EROs that were a SLGT or greater risk in Figure 6, which provides insight on where more substantial events are typically forecasted. The primary difference found from this portion of the analysis was the center of the maxima which experienced minor spatial shifts in some of the nodes. Node (3,1) is an example of where this occurs, as the frequency of any outlook is maximized over northern Louisiana, while the SLGT or greater is maximized over north central Texas. Such shifts demonstrate that these regimes may not produce the most amount of EROs for a certain area, but it more frequently produces higher risk categories for a region.
 
+<p align="center">
+  <img src="figures/slgt+.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 6: Slight Risk ERO or Greater Outlook Percentage Frequency per SOM Node.</em>
+</p>
 
 Stacking all of the risks on top of each other allowed for the analysis of a maximum risk category plot to understand which synoptic regimes produce more prolific events, and how common they may be. Several regimes produced relatively infrequent MDT and HIGH risks, such as (1,0) or (0,4). Others, especially the nodes with ample moisture and a western trough, such as (1,1) or (3,2), produced widespread MDT and HIGH risks across the ECONUS, aligning with contemporary research (Jennrich et al. 2020). Additionally, the footprint of the upper echelon risks varies with each regime as well, with very likely patterns seen by subjectively comparing the maximum risk plot to the z500 and PWAT plot. Synoptic regimes near the bottom right side had a much more defined spatial footprint in the Southeast and Mid-Atlantic given the shrunken moisture axis, while a dominant ridging pattern like (1,3) has widely scattered and smaller MDT risks. Even the general orientation can be insightful, as it illustrates the most prominent direction excessive rainfall events propagate. Eastern squall lines are inferred in (0,0), while (0,1) have northwest to southeast oriented outlooks, which is likely northwest flow mesoscale convective systems, which both are supported by the mean synoptic pattern.
 
+<p align="center">
+  <img src="figures/max_risk.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 7: The maximum ERO risk per node. Obtained by stacking each risk category from low to high.</em>
+</p>
 
 Finally, not only do the locations of EROs vary with synoptic regime, but the sizes also, which was calculated by counting the number of grid points with any outlook category. Similar to the above, Figure 8 demonstrates that regimes with widespread moisture tend to vary in terms of the spatial sizes of outlooks more than their confined moisture counterparts. Likewise, dominant troughing patterns appear to vary less than dominant ridging patterns, which is likely a result of warm season mesoscale factors driving excessive precipitation potential. These results have been explained in previous analyses of linking large scale atmospheric patterns to extreme precipitation (Barlow et al. 2019; Jennrich et al. 2020). This idea drove the motivation of a seasonality plot. Many of the nodes that were suspected to occur from seasonality did, as it aligned relatively well with which three-month category the majority of members came from per node (Fig. 9). Additionally, PWAT values representing moisture tended to be higher than those of the cold-season synoptic setups (Grumm and Holmes 2007). Other nodes demonstrating more transient patterns do not have a dominant season, and typically were the modestly spread moisture and somewhat amplified troughing, essentially lacking extremes in terms of the synoptic attributes.
 
+<p align="center">
+  <img src="figures/boxplots.png" width="850">
+</p>
 
+<p align="center">
+  <em>Figure 8: Spatial coverage (grid space count) boxplots for each SOM node.</em>
+</p>
+
+
+<p align="center">
+  <img src="figures/seasonality.png" width="850">
+</p>
+
+<p align="center">
+  <em>Figure 9: Seasonal frequency of timesteps associated with each SOM node.</em>
+</p>
 
 ---
 
