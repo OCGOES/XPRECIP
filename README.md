@@ -218,7 +218,6 @@ Schumacher, R. S., A. J. Hill, M. Klein, J. A. Nelson, M. J. Erickson, S. M. Tro
 ---
 
 ## 9. Requirements
-Items marked in green have been completed, items marked in yellow are in progress, items in gray are to be completed, and items marked in red have been removed/revised.
 
 | Requirement | Priority | Sprint | Assigned To | Description | Acceptance Criteria | Automatic Test | Status |
 |---|---|---|---|---|---|---|---|
